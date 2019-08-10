@@ -1,4 +1,5 @@
 import Position from './Position';
+
 const boardSize = 4;
 it('should throw for 0 position ', (): void => {
     expect((): void => {
@@ -6,7 +7,7 @@ it('should throw for 0 position ', (): void => {
     }).toThrow(Position.ErrorMessages.positionError);
 });
 it('should not throw error for right positions', (): void => {
-    for (let i = 1; i <= boardSize * boardSize; i++) {
+    for (let i = 1; i <= boardSize * boardSize; i += 1) {
         expect((): void => {
             new Position(i, boardSize);
         }).not.toThrow();
