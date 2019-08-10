@@ -25,4 +25,4 @@ class Position {
     }
 }
 Position.ErrorMessages = ErrorsMessages;
-export = Position;
+export default Position;
