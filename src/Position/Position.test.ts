@@ -1,4 +1,4 @@
-import Position, { ErrorMessages, Edges, Corners } from './Position';
+import Position, { ErrorMessages, Edge, Corner } from './Position';
 
 function testBegin(size: number): void {
     describe(`Test for board size ${size}`, (): void => {
@@ -42,60 +42,60 @@ function testBegin(size: number): void {
         it('should be true for right top edge', (): void => {
             for (let i = 1; i <= size; i += 1) {
                 const p1 = new Position(i, size);
-                expect(p1.isEdge(Edges.top)).toBeTruthy();
-                expect(p1.hasEdge(Edges.top)).toBeFalsy();
-                expect(p1.hasCorner(Corners.topLeft)).toBeFalsy();
-                expect(p1.hasCorner(Corners.topRight)).toBeFalsy();
+                expect(p1.isEdge(Edge.top)).toBeTruthy();
+                expect(p1.hasEdge(Edge.top)).toBeFalsy();
+                expect(p1.hasCorner(Corner.topLeft)).toBeFalsy();
+                expect(p1.hasCorner(Corner.topRight)).toBeFalsy();
             }
         });
         it('should be false for wrong top edge', (): void => {
             for (let i = size + 1; i <= size ** 2; i += 1) {
                 const p = new Position(i, size);
-                expect(p.isEdge(Edges.top)).toBeFalsy();
-                expect(p.hasEdge(Edges.top)).toBeTruthy();
+                expect(p.isEdge(Edge.top)).toBeFalsy();
+                expect(p.hasEdge(Edge.top)).toBeTruthy();
             }
         });
         it('should be true for right left edge', (): void => {
             for (let i = size + 1; i < size ** 2; i += size) {
                 const p = new Position(i, size);
-                expect(p.isEdge(Edges.left)).toBeTruthy();
-                expect(p.hasEdge(Edges.left)).toBeFalsy();
-                expect(p.hasCorner(Corners.topLeft)).toBeFalsy();
-                expect(p.hasCorner(Corners.bottomLeft)).toBeFalsy();
+                expect(p.isEdge(Edge.left)).toBeTruthy();
+                expect(p.hasEdge(Edge.left)).toBeFalsy();
+                expect(p.hasCorner(Corner.topLeft)).toBeFalsy();
+                expect(p.hasCorner(Corner.bottomLeft)).toBeFalsy();
             }
         });
         it('should be false for wrong left edge', (): void => {
             const p = new Position(size + 2, size);
-            expect(p.isEdge(Edges.left)).toBeFalsy();
-            expect(p.hasEdge(Edges.left)).toBeTruthy();
+            expect(p.isEdge(Edge.left)).toBeFalsy();
+            expect(p.hasEdge(Edge.left)).toBeTruthy();
         });
         it('should be true for right right edge', (): void => {
             for (let i = size; i <= size ** 2; i += size) {
                 const p = new Position(i, size);
-                expect(p.isEdge(Edges.right)).toBeTruthy();
-                expect(p.hasEdge(Edges.right)).toBeFalsy();
-                expect(p.hasCorner(Corners.topRight)).toBeFalsy();
-                expect(p.hasCorner(Corners.bottomRight)).toBeFalsy();
+                expect(p.isEdge(Edge.right)).toBeTruthy();
+                expect(p.hasEdge(Edge.right)).toBeFalsy();
+                expect(p.hasCorner(Corner.topRight)).toBeFalsy();
+                expect(p.hasCorner(Corner.bottomRight)).toBeFalsy();
             }
         });
         it('should be false for wrong right edge', (): void => {
             const p = new Position(size - 1, size);
-            expect(p.isEdge(Edges.right)).toBeFalsy();
-            expect(p.hasEdge(Edges.right)).toBeTruthy();
+            expect(p.isEdge(Edge.right)).toBeFalsy();
+            expect(p.hasEdge(Edge.right)).toBeTruthy();
         });
         it('should be true for right down edge', (): void => {
             for (let i = ((size - 1) * size) + 1; i <= size ** 2; i += 1) {
                 const p = new Position(i, size);
-                expect(p.isEdge(Edges.bottom)).toBeTruthy();
-                expect(p.hasEdge(Edges.bottom)).toBeFalsy();
-                expect(p.hasCorner(Corners.bottomLeft)).toBeFalsy();
-                expect(p.hasCorner(Corners.bottomRight)).toBeFalsy();
+                expect(p.isEdge(Edge.bottom)).toBeTruthy();
+                expect(p.hasEdge(Edge.bottom)).toBeFalsy();
+                expect(p.hasCorner(Corner.bottomLeft)).toBeFalsy();
+                expect(p.hasCorner(Corner.bottomRight)).toBeFalsy();
             }
         });
         it('should be false for wrong bottom edge', (): void => {
             const p = new Position((size - 1) * size, size);
-            expect(p.isEdge(Edges.bottom)).toBeFalsy();
-            expect(p.hasEdge(Edges.bottom)).toBeTruthy();
+            expect(p.isEdge(Edge.bottom)).toBeFalsy();
+            expect(p.hasEdge(Edge.bottom)).toBeTruthy();
         });
     });
 }

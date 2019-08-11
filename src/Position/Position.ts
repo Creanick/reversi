@@ -4,19 +4,19 @@ export enum ErrorMessages {
     positionError = 'Position is not inside the board',
     sizeError='Size should be greater than 1'
 }
-export enum Edges{
+export enum Edge{
     left,
     right,
     top,
     bottom
 }
-export enum Corners{
+export enum Corner{
     topLeft,
     topRight,
     bottomLeft,
     bottomRight
 }
-export type Directions = Edges | Corners;
+export type Direction = Edge | Corner;
 class Position {
     public position: number;
 
@@ -29,38 +29,38 @@ class Position {
         this.size = size;
     }
 
-    public isEdge(edge: Edges): boolean {
-        if (edge === Edges.top) {
+    public isEdge(edge: Edge): boolean {
+        if (edge === Edge.top) {
             return this.position >= 1 && this.position <= this.size;
         }
-        if (edge === Edges.right) {
+        if (edge === Edge.right) {
             return this.position % this.size === 0;
         }
-        if (edge === Edges.left) {
+        if (edge === Edge.left) {
             return this.position % this.size === 1;
         }
-        if (edge === Edges.bottom) {
+        if (edge === Edge.bottom) {
             return ((this.size - 1) * this.size) < this.position && this.position <= this.size ** 2;
         }
         return false;
     }
 
-    public hasEdge(edge: Edges): boolean {
+    public hasEdge(edge: Edge): boolean {
         return !this.isEdge(edge);
     }
 
-    public hasCorner(corner: Corners): boolean {
-        if (corner === Corners.topLeft) {
-            return !(this.isEdge(Edges.top) || this.isEdge(Edges.left));
+    public hasCorner(corner: Corner): boolean {
+        if (corner === Corner.topLeft) {
+            return !(this.isEdge(Edge.top) || this.isEdge(Edge.left));
         }
-        if (corner === Corners.topRight) {
-            return !(this.isEdge(Edges.top) || this.isEdge(Edges.right));
+        if (corner === Corner.topRight) {
+            return !(this.isEdge(Edge.top) || this.isEdge(Edge.right));
         }
-        if (corner === Corners.bottomLeft) {
-            return !(this.isEdge(Edges.bottom) || this.isEdge(Edges.left));
+        if (corner === Corner.bottomLeft) {
+            return !(this.isEdge(Edge.bottom) || this.isEdge(Edge.left));
         }
-        if (corner === Corners.bottomRight) {
-            return !(this.isEdge(Edges.bottom) || this.isEdge(Edges.right));
+        if (corner === Corner.bottomRight) {
+            return !(this.isEdge(Edge.bottom) || this.isEdge(Edge.right));
         }
 
         return false;
