@@ -1,26 +1,32 @@
 import conditionError from '../utils/conditionError';
 
-export enum ErrorMessages {
+enum ErrorMessages {
     positionError = 'Position is not inside the board',
     sizeError='Size should be greater than 1'
 }
-export enum Edge{
+enum Edge{
     left,
     right,
     top,
     bottom
 }
-export enum Corner{
+enum Corner{
     topLeft,
     topRight,
     bottomLeft,
     bottomRight
 }
-export type Direction = Edge | Corner;
+type Direction = Edge | Corner;
 class Position {
     public position: number;
 
     public size: number;
+
+    public static ErrorMessages: typeof ErrorMessages;
+
+    public static Edge: typeof Edge;
+
+    public static Corner: typeof Corner;
 
     public constructor(position: number, size: number) {
         conditionError(position >= 1 && position <= size * size, ErrorMessages.positionError);
@@ -83,4 +89,8 @@ class Position {
         return null;
     }
 }
+
+Position.ErrorMessages = ErrorMessages;
+Position.Edge = Edge;
+Position.Corner = Corner;
 export default Position;
