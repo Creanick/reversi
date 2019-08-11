@@ -16,6 +16,7 @@ export enum Corners{
     bottomLeft,
     bottomRight
 }
+export type Directions = Edges | Corners;
 class Position {
     public position: number;
 
