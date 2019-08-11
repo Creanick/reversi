@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": " npm run type:check && babel ./src --out-dir dist --extensions '.ts'",
-    "type:check:watch": "tsc -w",
+    "build": " npm run d:build && babel ./src --out-dir dist --extensions '.ts'",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "type:check": "tsc",
+    "type:check": "tsc --b ./tsconfig.json",
+    "d:build": "tsc --b ./tsconfig.build.json",
     "lint": "eslint ./src --ext .ts",
-    "isOk": "npm run test && npm run build"
+    "isOk": "npm run test && npm run type:check && npm run lint"
   },
   "author": "",
   "license": "ISC",
