@@ -65,5 +65,22 @@ class Position {
 
         return false;
     }
+
+    public nextEdge(edge: Edge): Position | null{
+        if (!this.hasEdge(edge)) return null;
+        if (edge === Edge.left) {
+            return new Position(this.position - 1, this.size);
+        }
+        if (edge === Edge.right) {
+            return new Position(this.position + 1, this.size);
+        }
+        if (edge === Edge.top) {
+            return new Position(this.position - this.size, this.size);
+        }
+        if (edge === Edge.bottom) {
+            return new Position(this.position + this.size, this.size);
+        }
+        return null;
+    }
 }
 export default Position;

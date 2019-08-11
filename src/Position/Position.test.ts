@@ -46,6 +46,7 @@ function testBegin(size: number): void {
                 expect(p1.hasEdge(Edge.top)).toBeFalsy();
                 expect(p1.hasCorner(Corner.topLeft)).toBeFalsy();
                 expect(p1.hasCorner(Corner.topRight)).toBeFalsy();
+                expect(p1.nextEdge(Edge.top)).toBeNull();
             }
         });
         it('should be false for wrong top edge', (): void => {
@@ -60,6 +61,7 @@ function testBegin(size: number): void {
                 const p = new Position(i, size);
                 expect(p.isEdge(Edge.left)).toBeTruthy();
                 expect(p.hasEdge(Edge.left)).toBeFalsy();
+                expect(p.nextEdge(Edge.left)).toBeNull();
                 expect(p.hasCorner(Corner.topLeft)).toBeFalsy();
                 expect(p.hasCorner(Corner.bottomLeft)).toBeFalsy();
             }
@@ -74,6 +76,7 @@ function testBegin(size: number): void {
                 const p = new Position(i, size);
                 expect(p.isEdge(Edge.right)).toBeTruthy();
                 expect(p.hasEdge(Edge.right)).toBeFalsy();
+                expect(p.nextEdge(Edge.right)).toBeNull();
                 expect(p.hasCorner(Corner.topRight)).toBeFalsy();
                 expect(p.hasCorner(Corner.bottomRight)).toBeFalsy();
             }
@@ -83,11 +86,12 @@ function testBegin(size: number): void {
             expect(p.isEdge(Edge.right)).toBeFalsy();
             expect(p.hasEdge(Edge.right)).toBeTruthy();
         });
-        it('should be true for right down edge', (): void => {
+        it('should be true for right buttom edge', (): void => {
             for (let i = ((size - 1) * size) + 1; i <= size ** 2; i += 1) {
                 const p = new Position(i, size);
                 expect(p.isEdge(Edge.bottom)).toBeTruthy();
                 expect(p.hasEdge(Edge.bottom)).toBeFalsy();
+                expect(p.nextEdge(Edge.bottom)).toBeNull();
                 expect(p.hasCorner(Corner.bottomLeft)).toBeFalsy();
                 expect(p.hasCorner(Corner.bottomRight)).toBeFalsy();
             }
@@ -99,8 +103,25 @@ function testBegin(size: number): void {
         });
     });
 }
-
 testBegin(4);
 testBegin(2);
 testBegin(3);
 testBegin(1);
+describe('Test for Position next edge', (): void => {
+    const p = new Position(6, 4);
+    it('should be return correct position for next top edge', (): void => {
+        expect(p.nextEdge(Edge.top)).toEqual(new Position(2, 4));
+    });
+
+    it('should be return correct position for next left edge', (): void => {
+        expect(p.nextEdge(Edge.left)).toEqual(new Position(5, 4));
+    });
+
+    it('should be return correct position for next right edge', (): void => {
+        expect(p.nextEdge(Edge.right)).toEqual(new Position(7, 4));
+    });
+
+    it('should be return correct position for next edge', (): void => {
+        expect(p.nextEdge(Edge.bottom)).toEqual(new Position(10, 4));
+    });
+});
