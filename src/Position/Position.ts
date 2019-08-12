@@ -88,6 +88,23 @@ class Position {
         }
         return null;
     }
+
+    public nextCorner(corner: Corner): Position | null{
+        if (!this.hasCorner(corner)) return null;
+        if (corner === Corner.topLeft) {
+            return new Position(this.position - this.size - 1, this.size);
+        }
+        if (corner === Corner.topRight) {
+            return new Position(this.position - this.size + 1, this.size);
+        }
+        if (corner === Corner.bottomLeft) {
+            return new Position(this.position + this.size - 1, this.size);
+        }
+        if (corner === Corner.bottomRight) {
+            return new Position(this.position + this.size + 1, this.size);
+        }
+        return null;
+    }
 }
 
 Position.ErrorMessages = ErrorMessages;

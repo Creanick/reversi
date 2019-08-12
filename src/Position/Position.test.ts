@@ -46,9 +46,11 @@ function testBegin(size: number): void {
                 const p1 = new Position(i, size);
                 expect(p1.isEdge(Edge.top)).toBeTruthy();
                 expect(p1.hasEdge(Edge.top)).toBeFalsy();
+                expect(p1.nextEdge(Edge.top)).toBeNull();
                 expect(p1.hasCorner(Corner.topLeft)).toBeFalsy();
                 expect(p1.hasCorner(Corner.topRight)).toBeFalsy();
-                expect(p1.nextEdge(Edge.top)).toBeNull();
+                expect(p1.nextCorner(Corner.topLeft)).toBeNull();
+                expect(p1.nextCorner(Corner.topRight)).toBeNull();
             }
         });
         it('should be false for wrong top edge', (): void => {
@@ -66,6 +68,8 @@ function testBegin(size: number): void {
                 expect(p.nextEdge(Edge.left)).toBeNull();
                 expect(p.hasCorner(Corner.topLeft)).toBeFalsy();
                 expect(p.hasCorner(Corner.bottomLeft)).toBeFalsy();
+                expect(p.nextCorner(Corner.topLeft)).toBeNull();
+                expect(p.nextCorner(Corner.bottomLeft)).toBeNull();
             }
         });
         it('should be false for wrong left edge', (): void => {
@@ -81,6 +85,8 @@ function testBegin(size: number): void {
                 expect(p.nextEdge(Edge.right)).toBeNull();
                 expect(p.hasCorner(Corner.topRight)).toBeFalsy();
                 expect(p.hasCorner(Corner.bottomRight)).toBeFalsy();
+                expect(p.nextCorner(Corner.topRight)).toBeNull();
+                expect(p.nextCorner(Corner.bottomRight)).toBeNull();
             }
         });
         it('should be false for wrong right edge', (): void => {
@@ -88,7 +94,7 @@ function testBegin(size: number): void {
             expect(p.isEdge(Edge.right)).toBeFalsy();
             expect(p.hasEdge(Edge.right)).toBeTruthy();
         });
-        it('should be true for right buttom edge', (): void => {
+        it('should be true for right bottom edge', (): void => {
             for (let i = ((size - 1) * size) + 1; i <= size ** 2; i += 1) {
                 const p = new Position(i, size);
                 expect(p.isEdge(Edge.bottom)).toBeTruthy();
@@ -96,6 +102,8 @@ function testBegin(size: number): void {
                 expect(p.nextEdge(Edge.bottom)).toBeNull();
                 expect(p.hasCorner(Corner.bottomLeft)).toBeFalsy();
                 expect(p.hasCorner(Corner.bottomRight)).toBeFalsy();
+                expect(p.nextCorner(Corner.bottomLeft)).toBeNull();
+                expect(p.nextCorner(Corner.bottomRight)).toBeNull();
             }
         });
         it('should be false for wrong bottom edge', (): void => {
@@ -125,5 +133,20 @@ describe('Test for Position next edge', (): void => {
 
     it('should be return correct position for next edge', (): void => {
         expect(p.nextEdge(Edge.bottom)).toEqual(new Position(10, 4));
+    });
+});
+describe('Test for Position next corner', (): void => {
+    const p = new Position(10, 4);
+    it('should be return current position for next top left corner', (): void => {
+        expect(p.nextCorner(Corner.topLeft)).toEqual(new Position(5, 4));
+    });
+    it('should be return current position for next top right corner', (): void => {
+        expect(p.nextCorner(Corner.topRight)).toEqual(new Position(7, 4));
+    });
+    it('should be return current position for next bottom left corner', (): void => {
+        expect(p.nextCorner(Corner.bottomLeft)).toEqual(new Position(13, 4));
+    });
+    it('should be return current position for next top left corner', (): void => {
+        expect(p.nextCorner(Corner.bottomRight)).toEqual(new Position(15, 4));
     });
 });
