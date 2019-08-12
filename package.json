@@ -2,7 +2,7 @@
   "name": "reversi-board",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": " npm run d:build && babel ./src --out-dir dist --extensions '.ts'",
     "test": "jest",
