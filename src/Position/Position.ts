@@ -17,6 +17,10 @@ enum Corner{
     bottomRight
 }
 type Direction = Edge | Corner;
+interface PositionCore{
+    position: number;
+    size: number;
+}
 class Position {
     public position: number;
 
@@ -28,7 +32,7 @@ class Position {
 
     public static Corner: typeof Corner;
 
-    public constructor(position: number, size: number) {
+    public constructor({ position, size }: PositionCore) {
         conditionError(position >= 1 && position <= size * size, ErrorMessages.positionError);
         conditionError(size > 1, ErrorMessages.sizeError);
         this.position = position;
@@ -75,16 +79,16 @@ class Position {
     public nextEdge(edge: Edge): Position | null{
         if (!this.hasEdge(edge)) return null;
         if (edge === Edge.left) {
-            return new Position(this.position - 1, this.size);
+            return new Position({ position: this.position - 1, size: this.size });
         }
         if (edge === Edge.right) {
-            return new Position(this.position + 1, this.size);
+            return new Position({ position: this.position + 1, size: this.size });
         }
         if (edge === Edge.top) {
-            return new Position(this.position - this.size, this.size);
+            return new Position({ position: this.position - this.size, size: this.size });
         }
         if (edge === Edge.bottom) {
-            return new Position(this.position + this.size, this.size);
+            return new Position({ position: this.position + this.size, size: this.size });
         }
         return null;
     }
@@ -92,16 +96,16 @@ class Position {
     public nextCorner(corner: Corner): Position | null{
         if (!this.hasCorner(corner)) return null;
         if (corner === Corner.topLeft) {
-            return new Position(this.position - this.size - 1, this.size);
+            return new Position({ position: this.position - this.size - 1, size: this.size });
         }
         if (corner === Corner.topRight) {
-            return new Position(this.position - this.size + 1, this.size);
+            return new Position({ position: this.position - this.size + 1, size: this.size });
         }
         if (corner === Corner.bottomLeft) {
-            return new Position(this.position + this.size - 1, this.size);
+            return new Position({ position: this.position + this.size - 1, size: this.size });
         }
         if (corner === Corner.bottomRight) {
-            return new Position(this.position + this.size + 1, this.size);
+            return new Position({ position: this.position + this.size + 1, size: this.size });
         }
         return null;
     }
