@@ -2,7 +2,7 @@ import ReversiBoard from './ReversiBoard';
 import Disk from '../Disk/Disk';
 
 describe('Test Reversi board property size', (): void => {
-    it('should throw error for wrong size', (): void => {
+    it('should throw error for wrong size 0', (): void => {
         expect((): void => {
             new ReversiBoard(0);
         }).toThrow();
@@ -12,7 +12,7 @@ describe('Test Reversi board property size', (): void => {
             new ReversiBoard(1);
         }).toThrow();
     });
-    it('should throw error for right size ', (): void => {
+    it('should not throw error for right size ', (): void => {
         expect((): void => {
             new ReversiBoard(2);
         }).not.toThrow();
