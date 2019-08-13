@@ -40,8 +40,8 @@ class ReversiBoard {
         );
     }
 
-    public getDisk(index: number): Disk {
-        return this._disks[index - 1];
+    public getDisk(position: number): Disk {
+        return this._disks[position - 1];
     }
 
     public get boardSize(): number {
