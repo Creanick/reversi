@@ -27,15 +27,18 @@ function flexibleTest(size: number): void {
             expect(r.disks[i].position.position).toBe(i + 1);
         }
     });
+    it('board size of reversi size should be right', (): void => {
+        const r = new ReversiBoard(size);
+        expect(r.boardSize).toBe(size ** 2);
+    });
     it('test for board get disk method', (): void => {
         const r = new ReversiBoard(size);
         expect(r.getDisk(1).position.position).toBe(1);
         expect(r.getDisk(2).position.position).toBe(2);
-        expect(r.getDisk(size).position.position).toBe(size);
-    });
-    it('board size of reversi size should be right', (): void => {
-        const r = new ReversiBoard(size);
-        expect(r.boardSize).toBe(size ** 2);
+        expect(r.getDisk(r.boardSize).position.position).toBe(r.boardSize);
+        expect(r.getDisk(0)).toBeUndefined();
+        expect(r.getDisk(-1)).toBeUndefined();
+        expect(r.getDisk(r.boardSize + 1)).toBeUndefined();
     });
 }
 
