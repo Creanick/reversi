@@ -1,6 +1,6 @@
 import Position from '../Position/Position';
 
-enum DiskType{empty, light, dark}
+enum DiskType{empty='empty', light='light', dark='dark'}
 interface DiskCore{
     position: Position;
     type?: DiskType;
