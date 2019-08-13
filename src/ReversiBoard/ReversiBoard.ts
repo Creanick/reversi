@@ -2,7 +2,6 @@ import Disk from '../Disk/Disk';
 import Position from '../Position/Position';
 import conditionError from '../utils/conditionError';
 
-const { DiskType } = Disk;
 const { ErrorMessages } = Position;
 
 class ReversiBoard {
