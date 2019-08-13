@@ -6,34 +6,50 @@ interface DiskCore{
     type?: DiskType;
 }
 class Disk {
-    public position: Position;
+    private _position: Position;
 
-    public type: DiskType;
+    public get position(): Position {
+        return this._position;
+    }
+
+    public set position(value: Position) {
+        this._position = value;
+    }
+
+    private _type: DiskType;
+
+    public get type(): DiskType {
+        return this._type;
+    }
+
+    public set type(value: DiskType) {
+        this._type = value;
+    }
 
     public static DiskType: typeof DiskType;
 
     public constructor({ position, type = DiskType.empty }: DiskCore) {
-        this.position = position;
-        this.type = type;
+        this._position = position;
+        this._type = type;
     }
 
     public toggle(): void{
-        if (this.type === DiskType.empty) return;
-        if (this.type === DiskType.light) {
-            this.type = DiskType.dark;
+        if (this._type === DiskType.empty) return;
+        if (this._type === DiskType.light) {
+            this._type = DiskType.dark;
             return;
         }
-        if (this.type === DiskType.dark) {
-            this.type = DiskType.light;
+        if (this._type === DiskType.dark) {
+            this._type = DiskType.light;
         }
     }
 
     public reset(): void{
-        this.type = DiskType.empty;
+        this._type = DiskType.empty;
     }
 
     public update(type: DiskType): void {
-        this.type = type;
+        this._type = type;
     }
 }
 Disk.DiskType = DiskType;
