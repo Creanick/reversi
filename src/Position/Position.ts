@@ -22,9 +22,25 @@ interface PositionCore{
     size: number;
 }
 class Position {
-    public position: number;
+    private _position: number;
 
-    public size: number;
+    public get position(): number {
+        return this._position;
+    }
+
+    public set position(value: number) {
+        this._position = value;
+    }
+
+    private _size: number;
+
+    public get size(): number {
+        return this._size;
+    }
+
+    public set size(value: number) {
+        this._size = value;
+    }
 
     public static ErrorMessages: typeof ErrorMessages;
 
@@ -35,22 +51,23 @@ class Position {
     public constructor({ position, size }: PositionCore) {
         conditionError(position >= 1 && position <= size * size, ErrorMessages.positionError);
         conditionError(size > 1, ErrorMessages.sizeError);
-        this.position = position;
-        this.size = size;
+        this._position = position;
+        this._size = size;
     }
 
     public isEdge(edge: Edge): boolean {
         if (edge === Edge.top) {
-            return this.position >= 1 && this.position <= this.size;
+            return this._position >= 1 && this._position <= this._size;
         }
         if (edge === Edge.right) {
-            return this.position % this.size === 0;
+            return this._position % this._size === 0;
         }
         if (edge === Edge.left) {
-            return this.position % this.size === 1;
+            return this._position % this._size === 1;
         }
         if (edge === Edge.bottom) {
-            return ((this.size - 1) * this.size) < this.position && this.position <= this.size ** 2;
+            return ((this._size - 1) * this._size) < this._position
+             && this._position <= this._size ** 2;
         }
         return false;
     }
@@ -79,16 +96,16 @@ class Position {
     public nextEdge(edge: Edge): Position | null{
         if (!this.hasEdge(edge)) return null;
         if (edge === Edge.left) {
-            return new Position({ position: this.position - 1, size: this.size });
+            return new Position({ position: this._position - 1, size: this._size });
         }
         if (edge === Edge.right) {
-            return new Position({ position: this.position + 1, size: this.size });
+            return new Position({ position: this._position + 1, size: this._size });
         }
         if (edge === Edge.top) {
-            return new Position({ position: this.position - this.size, size: this.size });
+            return new Position({ position: this._position - this._size, size: this._size });
         }
         if (edge === Edge.bottom) {
-            return new Position({ position: this.position + this.size, size: this.size });
+            return new Position({ position: this._position + this._size, size: this._size });
         }
         return null;
     }
@@ -96,16 +113,16 @@ class Position {
     public nextCorner(corner: Corner): Position | null{
         if (!this.hasCorner(corner)) return null;
         if (corner === Corner.topLeft) {
-            return new Position({ position: this.position - this.size - 1, size: this.size });
+            return new Position({ position: this._position - this._size - 1, size: this._size });
         }
         if (corner === Corner.topRight) {
-            return new Position({ position: this.position - this.size + 1, size: this.size });
+            return new Position({ position: this._position - this._size + 1, size: this._size });
         }
         if (corner === Corner.bottomLeft) {
-            return new Position({ position: this.position + this.size - 1, size: this.size });
+            return new Position({ position: this._position + this._size - 1, size: this._size });
         }
         if (corner === Corner.bottomRight) {
-            return new Position({ position: this.position + this.size + 1, size: this.size });
+            return new Position({ position: this._position + this._size + 1, size: this._size });
         }
         return null;
     }
