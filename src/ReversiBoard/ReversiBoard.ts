@@ -69,6 +69,16 @@ class ReversiBoard {
         if (disk.type === Disk.DiskType.light || disk.type === Disk.DiskType.dark) return true;
         return false;
     }
+
+    public deleteDisk(position: number): void{
+        if (!this.isPositionValid(position)) return;
+        this.getDisk(position).reset();
+    }
+
+    public toggleDisk(position: number): void{
+        if (!this.isPositionValid(position)) return;
+        this.getDisk(position).toggle();
+    }
 }
 
 export default ReversiBoard;
