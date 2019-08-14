@@ -1,7 +1,7 @@
 import ReversiBoard from './ReversiBoard';
-import Disk from '../Disk/Disk';
 
-const { DiskType } = Disk;
+import { DiskType } from '../Disk/Disk.types';
+
 describe('Test Reversi board property size', (): void => {
     it('should throw error for wrong size 0', (): void => {
         expect((): void => {
@@ -78,6 +78,15 @@ function flexibleTest(size: number): void {
         expect(r.getDisk(3).type).toBe(DiskType.dark);
         r.toggleDisk(3);
         expect(r.getDisk(3).type).toBe(DiskType.light);
+    });
+    it('test for board override method', (): void => {
+        const r = new ReversiBoard(size);
+        r.override(DiskType.dark, 1, 3);
+        r.override(DiskType.dark, -1);
+        r.override(DiskType.light, 4);
+        expect(r.getDisk(1).type).toBe(DiskType.dark);
+        expect(r.getDisk(3).type).toBe(DiskType.dark);
+        expect(r.getDisk(4).type).toBe(DiskType.light);
     });
 }
 

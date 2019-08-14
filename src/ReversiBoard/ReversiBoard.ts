@@ -3,6 +3,7 @@ import Position from '../Position/Position';
 import conditionError from '../utils/conditionError';
 
 import { ErrorMessages } from '../Position/Position.types';
+import { DiskType } from '../Disk/Disk.types';
 
 class ReversiBoard {
     private _size: number;
@@ -66,7 +67,7 @@ class ReversiBoard {
     public isDiskAvailable(position: number): boolean {
         if (!this.isPositionValid(position)) return false;
         const disk = this.getDisk(position);
-        if (disk.type === Disk.DiskType.light || disk.type === Disk.DiskType.dark) return true;
+        if (disk.type === DiskType.light || disk.type === DiskType.dark) return true;
         return false;
     }
 
@@ -78,6 +79,14 @@ class ReversiBoard {
     public toggleDisk(position: number): void{
         if (!this.isPositionValid(position)) return;
         this.getDisk(position).toggle();
+    }
+
+    public override(diskType: DiskType, ...positions: number[]): void{
+        positions.forEach((position): void => {
+            if (!this.isPositionValid(position)) return;
+            const disk = this.getDisk(position);
+            disk.update(diskType);
+        });
     }
 }
 
