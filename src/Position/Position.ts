@@ -1,26 +1,9 @@
 import conditionError from '../utils/conditionError';
 
-enum ErrorMessages {
-    positionError = 'Position is not inside the board',
-    sizeError='Size should be greater than 1'
-}
-enum Edge{
-    left,
-    right,
-    top,
-    bottom
-}
-enum Corner{
-    topLeft,
-    topRight,
-    bottomLeft,
-    bottomRight
-}
-type Direction = Edge | Corner;
-interface PositionCore{
-    position: number;
-    size: number;
-}
+import {
+    ErrorMessages, Corner, Edge, PositionCore,
+} from './Position.types';
+
 class Position {
     private _position: number;
 

@@ -1,7 +1,7 @@
 import Disk from './Disk';
 import Position from '../Position/Position';
 
-const { DiskType } = Disk;
+import { DiskType } from './Disk.types';
 
 
 describe('Test Disk Class property', (): void => {

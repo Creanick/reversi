@@ -2,7 +2,7 @@ import Disk from '../Disk/Disk';
 import Position from '../Position/Position';
 import conditionError from '../utils/conditionError';
 
-const { ErrorMessages } = Position;
+import { ErrorMessages } from '../Position/Position.types';
 
 class ReversiBoard {
     private _size: number;

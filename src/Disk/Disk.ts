@@ -1,10 +1,7 @@
 import Position from '../Position/Position';
 
-enum DiskType{empty='empty', light='light', dark='dark'}
-interface DiskCore{
-    position: Position;
-    type?: DiskType;
-}
+import { DiskType, DiskCore } from './Disk.types';
+
 class Disk {
     private _position: Position;
 

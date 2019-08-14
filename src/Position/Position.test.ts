@@ -1,6 +1,6 @@
 import Position from './Position';
 
-const { Corner, Edge, ErrorMessages } = Position;
+import { Corner, Edge, ErrorMessages } from './Position.types';
 
 function testBegin(size: number): void {
     describe(`Test for board size ${size}`, (): void => {
