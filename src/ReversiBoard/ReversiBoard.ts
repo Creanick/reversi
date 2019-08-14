@@ -43,6 +43,10 @@ class ReversiBoard {
         return this._disks[position - 1];
     }
 
+    public isPositionValid(position: number): boolean {
+        return position >= 1 && position <= this.boardSize;
+    }
+
     public get boardSize(): number {
         return this._size * this._size;
     }
@@ -57,6 +61,13 @@ class ReversiBoard {
             console.log(`${result}\n`);
             result = '';
         }
+    }
+
+    public isDiskAvailable(position: number): boolean {
+        if (!this.isPositionValid(position)) return false;
+        const disk = this.getDisk(position);
+        if (disk.type === Disk.DiskType.light || disk.type === Disk.DiskType.dark) return true;
+        return false;
     }
 }
 

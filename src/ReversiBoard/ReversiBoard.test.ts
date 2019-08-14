@@ -40,6 +40,27 @@ function flexibleTest(size: number): void {
         expect(r.getDisk(-1)).toBeUndefined();
         expect(r.getDisk(r.boardSize + 1)).toBeUndefined();
     });
+    it('test for board isDiskAvailable ', (): void => {
+        const r = new ReversiBoard(size);
+        const firstDisk = r.getDisk(1);
+        const thirdDisk = r.getDisk(3);
+        const forthDisk = r.getDisk(4);
+        firstDisk.update(Disk.DiskType.dark);
+        thirdDisk.update(Disk.DiskType.light);
+        forthDisk.update(Disk.DiskType.dark);
+
+        expect(r.isDiskAvailable(-1)).toBeFalsy();
+        expect(r.isDiskAvailable(0)).toBeFalsy();
+        expect(r.isDiskAvailable(1)).toBeTruthy();
+        expect(r.isDiskAvailable(2)).toBeFalsy();
+        expect(r.isDiskAvailable(3)).toBeTruthy();
+        expect(r.isDiskAvailable(4)).toBeTruthy();
+        r.getDisk(r.boardSize).update(Disk.DiskType.light);
+        expect(r.isDiskAvailable(r.boardSize)).toBeTruthy();
+        expect(r.isDiskAvailable(r.boardSize + 1)).toBeFalsy();
+        const r1 = new ReversiBoard(size);
+        expect(r1.isDiskAvailable(r.boardSize)).toBeFalsy();
+    });
 }
 
 flexibleTest(2);
