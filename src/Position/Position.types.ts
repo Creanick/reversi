@@ -14,7 +14,10 @@ export enum Corner{
     bottomLeft,
     bottomRight
 }
-export type Direction = Edge | Corner;
+export interface Direction {
+    Edge: Edge;
+    Corner: Corner;
+}
 export interface PositionCore{
     position: number;
     size: number;
