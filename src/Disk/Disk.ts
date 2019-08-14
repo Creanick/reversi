@@ -23,8 +23,6 @@ class Disk {
         this._type = value;
     }
 
-    public static DiskType: typeof DiskType;
-
     public constructor({ position, type = DiskType.empty }: DiskCore) {
         this._position = position;
         this._type = type;
@@ -49,5 +47,4 @@ class Disk {
         this._type = type;
     }
 }
-Disk.DiskType = DiskType;
 export default Disk;

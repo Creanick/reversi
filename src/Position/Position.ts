@@ -25,12 +25,6 @@ class Position {
         this._size = value;
     }
 
-    public static ErrorMessages: typeof ErrorMessages;
-
-    public static Edge: typeof Edge;
-
-    public static Corner: typeof Corner;
-
     public constructor({ position, size }: PositionCore) {
         conditionError(position >= 1 && position <= size * size, ErrorMessages.positionError);
         conditionError(size > 1, ErrorMessages.sizeError);
@@ -110,8 +104,4 @@ class Position {
         return null;
     }
 }
-
-Position.ErrorMessages = ErrorMessages;
-Position.Edge = Edge;
-Position.Corner = Corner;
 export default Position;
