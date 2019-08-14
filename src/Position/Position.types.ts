@@ -14,10 +14,10 @@ export enum Corner{
     bottomLeft,
     bottomRight
 }
-export interface Direction {
-    Edge: Edge;
-    Corner: Corner;
-}
+export const Direction = {
+    Edge,
+    Corner,
+};
 export interface PositionCore{
     position: number;
     size: number;
