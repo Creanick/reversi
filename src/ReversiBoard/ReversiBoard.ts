@@ -84,8 +84,7 @@ class ReversiBoard {
     public override(diskType: DiskType, ...positions: number[]): void{
         positions.forEach((position): void => {
             if (!this.isPositionValid(position)) return;
-            const disk = this.getDisk(position);
-            disk.update(diskType);
+            this.getDisk(position).update(diskType);
         });
     }
 }
