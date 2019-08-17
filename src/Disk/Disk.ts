@@ -28,6 +28,17 @@ class Disk {
         this._type = type;
     }
 
+    public get oppositeType(): DiskType {
+        if (this.type === DiskType.empty) return DiskType.empty;
+        if (this.type === DiskType.light) return DiskType.dark;
+        if (this.type === DiskType.dark) return DiskType.light;
+        return DiskType.empty;
+    }
+
+    public isOppositeType(diskType: DiskType): boolean {
+        return this.oppositeType === diskType;
+    }
+
     public toggle(): void{
         if (this._type === DiskType.empty) return;
         if (this._type === DiskType.light) {

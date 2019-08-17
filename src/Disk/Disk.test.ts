@@ -73,3 +73,34 @@ describe('Test Disk Class Methods', (): void => {
         expect(disk.type).toBe(DiskType.empty);
     });
 });
+it('disk opposite type test', (): void => {
+    const disk = new Disk(
+        {
+            position: new Position({ position: 10, size: 4 }),
+        },
+    );
+    expect(disk.oppositeType).toBe(DiskType.empty);
+    disk.update(DiskType.dark);
+    expect(disk.oppositeType).toBe(DiskType.light);
+    disk.toggle();
+    expect(disk.oppositeType).toBe(DiskType.dark);
+});
+it('disk opposite type method test ', (): void => {
+    const disk = new Disk(
+        {
+            position: new Position({ position: 10, size: 4 }),
+            type: DiskType.dark,
+        },
+    );
+    expect(disk.isOppositeType(DiskType.empty)).toBeFalsy();
+    expect(disk.isOppositeType(DiskType.dark)).toBeFalsy();
+    expect(disk.isOppositeType(DiskType.light)).toBeTruthy();
+    disk.toggle();
+    expect(disk.isOppositeType(DiskType.empty)).toBeFalsy();
+    expect(disk.isOppositeType(DiskType.dark)).toBeTruthy();
+    expect(disk.isOppositeType(DiskType.light)).toBeFalsy();
+    disk.reset();
+    expect(disk.isOppositeType(DiskType.empty)).toBeTruthy();
+    expect(disk.isOppositeType(DiskType.dark)).toBeFalsy();
+    expect(disk.isOppositeType(DiskType.light)).toBeFalsy();
+});
