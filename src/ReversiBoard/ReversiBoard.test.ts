@@ -94,6 +94,7 @@ function flexibleTest(size: number): void {
 flexibleTest(2);
 flexibleTest(3);
 flexibleTest(4);
+flexibleTest(8);
 describe('Test for board size 2 for next method', (): void => {
     it('test board next disk method for position 1', (): void => {
         const r = new ReversiBoard(2);
@@ -175,4 +176,15 @@ describe('Test for board size 4 for next method', (): void => {
         expect(r.nextDiskCorner(7, Corner.bottomLeft)).toEqual(r.getDisk(10));
         expect(r.nextDiskCorner(7, Corner.topLeft)).toEqual(r.getDisk(2));
     });
+});
+
+it('should return true for some empty disk in board', (): void => {
+    const r = new ReversiBoard(4);
+    r.override(DiskType.light, 3, 4, 7, 12, 10, 11, 1);
+    expect(r.isAnyEmptyDisk()).toBeTruthy();
+});
+it('should return false for fully filled board', (): void => {
+    const r = new ReversiBoard(4);
+    r.override(DiskType.dark, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+    expect(r.isAnyEmptyDisk()).toBeFalsy();
 });

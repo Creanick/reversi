@@ -107,6 +107,16 @@ class ReversiBoard {
         }
         return null;
     }
+
+    public isAnyEmptyDisk(): boolean {
+        for (let i = 1; i <= this.boardSize; i += 1) {
+            const disk = this.getDisk(i);
+            if (disk.type === DiskType.empty) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 export default ReversiBoard;
