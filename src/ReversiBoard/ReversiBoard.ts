@@ -117,6 +117,19 @@ class ReversiBoard {
         }
         return false;
     }
+
+    public maxDiskType(): DiskType[] {
+        let darkCounter = 0;
+        let lightCounter = 0;
+        for (let i = 1; i <= this.boardSize; i += 1) {
+            const disk = this.getDisk(i);
+            if (disk.type === DiskType.light)lightCounter += 1;
+            if (disk.type === DiskType.dark)darkCounter += 1;
+        }
+        if (darkCounter > lightCounter) return [DiskType.dark];
+        if (darkCounter < lightCounter) return [DiskType.light];
+        return [DiskType.dark, DiskType.light];
+    }
 }
 
 export default ReversiBoard;

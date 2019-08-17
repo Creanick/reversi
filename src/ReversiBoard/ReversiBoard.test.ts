@@ -188,3 +188,25 @@ it('should return false for fully filled board', (): void => {
     r.override(DiskType.dark, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
     expect(r.isAnyEmptyDisk()).toBeFalsy();
 });
+it('should return both type in same quantity', (): void => {
+    const r = new ReversiBoard(4);
+    r.override(DiskType.dark, 1, 3, 5, 7, 9);
+    r.override(DiskType.light, 2, 4, 6, 8, 10);
+    expect(r.maxDiskType()).toEqual([DiskType.dark, DiskType.light]);
+});
+it('should return dark type is maximum quantity', (): void => {
+    const r = new ReversiBoard(4);
+    r.override(DiskType.dark, 3, 4, 5, 6, 7, 8);
+    r.override(DiskType.light, 10, 12);
+    expect(r.maxDiskType()).toEqual([DiskType.dark]);
+});
+it('should return light type is maximum quantity', (): void => {
+    const r = new ReversiBoard(4);
+    r.override(DiskType.light, 3, 4, 5, 6, 7, 8);
+    r.override(DiskType.dark, 10, 12);
+    expect(r.maxDiskType()).toEqual([DiskType.light]);
+});
+it('should return both for empty board', (): void => {
+    const r = new ReversiBoard(4);
+    expect(r.maxDiskType()).toEqual([DiskType.dark, DiskType.light]);
+});
