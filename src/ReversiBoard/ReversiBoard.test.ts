@@ -210,3 +210,98 @@ it('should return both for empty board', (): void => {
     const r = new ReversiBoard(4);
     expect(r.maxDiskType()).toEqual([DiskType.dark, DiskType.light]);
 });
+describe('Test for dominatable edge methods', (): void => {
+    const rightEdge = Edge.right;
+    it('test for null wall position', (): void => {
+        const r = new ReversiBoard(8);
+        expect(r.dominatablePositionsEdge(24, rightEdge, DiskType.light)).toEqual([]);
+    });
+    it('test for empty next position', (): void => {
+        const r = new ReversiBoard(8);
+        expect(r.dominatablePositionsEdge(23, rightEdge, DiskType.dark)).toEqual([]);
+    });
+    it('test for  opposite disk', (): void => {
+        const r = new ReversiBoard(8);
+        r.override(DiskType.light, 22);
+        expect(r.dominatablePositionsEdge(21, rightEdge, DiskType.dark)).toEqual([]);
+        r.override(DiskType.light, 23);
+        expect(r.dominatablePositionsEdge(21, rightEdge, DiskType.dark)).toEqual([]);
+        r.override(DiskType.light, 23, 24);
+        expect(r.dominatablePositionsEdge(21, rightEdge, DiskType.dark)).toEqual([]);
+    });
+    it('test for same disk and opposite disk', (): void => {
+        const r = new ReversiBoard(8);
+        r.override(DiskType.dark, 22);
+        r.override(DiskType.light, 23);
+        expect(r.dominatablePositionsEdge(21, rightEdge, DiskType.dark)).toEqual([]);
+    });
+    it('test for single opposite and then same disk', (): void => {
+        const r = new ReversiBoard(8);
+        r.override(DiskType.light, 22);
+        r.override(DiskType.dark, 23);
+        expect(r.dominatablePositionsEdge(21, rightEdge, DiskType.dark)).toEqual([22]);
+    });
+    it('test for double opposite and then same disk', (): void => {
+        const r = new ReversiBoard(8);
+        r.override(DiskType.light, 21, 22);
+        r.override(DiskType.dark, 23);
+        expect(r.dominatablePositionsEdge(20, rightEdge, DiskType.dark)).toEqual([21, 22]);
+        expect(r.dominatablePositionsEdge(24, Edge.left, DiskType.light)).toEqual([23]);
+    });
+    it('test for existing disk position', (): void => {
+        const r = new ReversiBoard(8);
+        r.override(DiskType.light, 21, 22);
+        r.override(DiskType.dark, 23);
+        expect(r.dominatablePositionsEdge(21, rightEdge, DiskType.dark)).toEqual([]);
+    });
+});
+describe('Test for dominatable corner methods', (): void => {
+    const testCorner = Corner.topRight;
+    it('test for null wall position', (): void => {
+        const r = new ReversiBoard(8);
+        expect(r.dominatablePositionsCorner(8, testCorner, DiskType.dark)).toEqual([]);
+    });
+    it('test for empty next position', (): void => {
+        const r = new ReversiBoard(8);
+        expect(r.dominatablePositionsCorner(15, testCorner, DiskType.dark)).toEqual([]);
+    });
+    it('test for  opposite disk', (): void => {
+        const r = new ReversiBoard(8);
+        r.override(DiskType.light, 22);
+        expect(r.dominatablePositionsCorner(29, testCorner, DiskType.dark)).toEqual([]);
+        r.override(DiskType.light, 15);
+        expect(r.dominatablePositionsCorner(29, testCorner, DiskType.dark)).toEqual([]);
+        r.override(DiskType.light, 8);
+        expect(r.dominatablePositionsCorner(29, testCorner, DiskType.dark)).toEqual([]);
+    });
+    it('test for same disk and opposite disk', (): void => {
+        const r = new ReversiBoard(8);
+        r.override(DiskType.dark, 22);
+        r.override(DiskType.light, 15);
+        expect(r.dominatablePositionsCorner(29, testCorner, DiskType.dark)).toEqual([]);
+    });
+    it('test for single opposite and then same disk', (): void => {
+        const r = new ReversiBoard(8);
+        r.override(DiskType.light, 22);
+        r.override(DiskType.dark, 15);
+        expect(r.dominatablePositionsCorner(29, testCorner, DiskType.dark)).toEqual([22]);
+    });
+    it('test for double opposite and then same disk', (): void => {
+        const r = new ReversiBoard(8);
+        r.override(DiskType.light, 15, 22);
+        r.override(DiskType.dark, 8);
+        expect(r.dominatablePositionsCorner(29, testCorner, DiskType.dark)).toEqual([22, 15]);
+    });
+    it('test for existing disk position', (): void => {
+        const r = new ReversiBoard(8);
+        r.override(DiskType.light, 22, 15);
+        r.override(DiskType.dark, 8);
+        expect(r.dominatablePositionsCorner(23, testCorner, DiskType.dark)).toEqual([]);
+    });
+    it('test for triple opposite and then same disk', (): void => {
+        const r = new ReversiBoard(8);
+        r.override(DiskType.dark, 8);
+        r.override(DiskType.light, 29, 22, 15);
+        expect(r.dominatablePositionsCorner(36, testCorner, DiskType.dark)).toEqual([29, 22, 15]);
+    });
+});

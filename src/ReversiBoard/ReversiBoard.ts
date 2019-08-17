@@ -130,6 +130,46 @@ class ReversiBoard {
         if (darkCounter < lightCounter) return [DiskType.light];
         return [DiskType.dark, DiskType.light];
     }
+
+    // eslint-disable-next-line max-len
+    public dominatablePositionsEdge(position: number, direction: Edge, diskType: DiskType): number[] {
+        if (!this.isPositionValid(position)) return [];
+        if (diskType !== DiskType.light && diskType !== DiskType.dark) return [];
+        if (this.getDisk(position).type !== DiskType.empty) return [];
+        let nextDisk = this.nextDiskEdge(position, direction);
+        if (nextDisk === null) return [];
+        if (nextDisk.type === DiskType.empty) return [];
+        if (!nextDisk.isOppositeType(diskType)) return [];
+        const result: number[] = [];
+        while (nextDisk !== null) {
+            result.push(nextDisk.position.position);
+            nextDisk = this.nextDiskEdge(nextDisk.position.position, direction);
+            if (nextDisk === null) return [];
+            if (nextDisk.type === DiskType.empty) return [];
+            if (!nextDisk.isOppositeType(diskType)) return result;
+        }
+        return [];
+    }
+
+    // eslint-disable-next-line max-len
+    public dominatablePositionsCorner(position: number, direction: Corner, diskType: DiskType): number[] {
+        if (!this.isPositionValid(position)) return [];
+        if (diskType !== DiskType.light && diskType !== DiskType.dark) return [];
+        if (this.getDisk(position).type !== DiskType.empty) return [];
+        let nextDisk = this.nextDiskCorner(position, direction);
+        if (nextDisk === null) return [];
+        if (nextDisk.type === DiskType.empty) return [];
+        if (!nextDisk.isOppositeType(diskType)) return [];
+        const result: number[] = [];
+        while (nextDisk !== null) {
+            result.push(nextDisk.position.position);
+            nextDisk = this.nextDiskCorner(nextDisk.position.position, direction);
+            if (nextDisk === null) return [];
+            if (nextDisk.type === DiskType.empty) return [];
+            if (!nextDisk.isOppositeType(diskType)) return result;
+        }
+        return [];
+    }
 }
 
 export default ReversiBoard;
