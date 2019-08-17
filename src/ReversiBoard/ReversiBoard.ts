@@ -2,7 +2,7 @@ import Disk from '../Disk/Disk';
 import Position from '../Position/Position';
 import conditionError from '../utils/conditionError';
 
-import { ErrorMessages } from '../Position/Position.types';
+import { ErrorMessages, Corner, Edge } from '../Position/Position.types';
 import { DiskType } from '../Disk/Disk.types';
 
 class ReversiBoard {
@@ -86,6 +86,26 @@ class ReversiBoard {
             if (!this.isPositionValid(position)) return;
             this.getDisk(position).update(diskType);
         });
+    }
+
+    public nextDiskEdge(position: number, edge: Edge): Disk | null{
+        if (!this.isPositionValid(position)) return null;
+        const currentDisk = this.getDisk(position);
+        const nextPosition = currentDisk.position.nextEdge(edge);
+        if (nextPosition instanceof Position) {
+            return this.getDisk(nextPosition.position);
+        }
+        return null;
+    }
+
+    public nextDiskCorner(position: number, corner: Corner): Disk | null{
+        if (!this.isPositionValid(position)) return null;
+        const currentDisk = this.getDisk(position);
+        const nextPosition = currentDisk.position.nextCorner(corner);
+        if (nextPosition instanceof Position) {
+            return this.getDisk(nextPosition.position);
+        }
+        return null;
     }
 }
 

@@ -1,6 +1,7 @@
 import ReversiBoard from './ReversiBoard';
 
 import { DiskType } from '../Disk/Disk.types';
+import { Edge, Corner } from '../Position/Position.types';
 
 describe('Test Reversi board property size', (): void => {
     it('should throw error for wrong size 0', (): void => {
@@ -93,3 +94,85 @@ function flexibleTest(size: number): void {
 flexibleTest(2);
 flexibleTest(3);
 flexibleTest(4);
+describe('Test for board size 2 for next method', (): void => {
+    it('test board next disk method for position 1', (): void => {
+        const r = new ReversiBoard(2);
+        // edge method
+        expect(r.nextDiskEdge(1, Edge.left)).toBeNull();
+        expect(r.nextDiskEdge(1, Edge.top)).toBeNull();
+        expect(r.nextDiskEdge(1, Edge.bottom)).toEqual(r.getDisk(3));
+        expect(r.nextDiskEdge(1, Edge.right)).toEqual(r.getDisk(2));
+        // corner method
+        expect(r.nextDiskCorner(1, Corner.topLeft)).toBeNull();
+        expect(r.nextDiskCorner(1, Corner.bottomLeft)).toBeNull();
+        expect(r.nextDiskCorner(1, Corner.topRight)).toBeNull();
+        expect(r.nextDiskCorner(1, Corner.bottomRight)).toEqual(r.getDisk(4));
+    });
+    it('test board next disk method for position 4', (): void => {
+        const r = new ReversiBoard(2);
+        // edge method
+        expect(r.nextDiskEdge(4, Edge.right)).toBeNull();
+        expect(r.nextDiskEdge(4, Edge.bottom)).toBeNull();
+        expect(r.nextDiskEdge(4, Edge.left)).toEqual(r.getDisk(3));
+        expect(r.nextDiskEdge(4, Edge.top)).toEqual(r.getDisk(2));
+        // corner method
+        expect(r.nextDiskCorner(4, Corner.topRight)).toBeNull();
+        expect(r.nextDiskCorner(4, Corner.bottomRight)).toBeNull();
+        expect(r.nextDiskCorner(4, Corner.bottomLeft)).toBeNull();
+        expect(r.nextDiskCorner(4, Corner.topLeft)).toEqual(r.getDisk(1));
+    });
+    it('test board next disk method for position 2', (): void => {
+        const r = new ReversiBoard(2);
+        // edge method
+        expect(r.nextDiskEdge(2, Edge.right)).toBeNull();
+        expect(r.nextDiskEdge(2, Edge.bottom)).toEqual(r.getDisk(4));
+        expect(r.nextDiskEdge(2, Edge.left)).toEqual(r.getDisk(1));
+        expect(r.nextDiskEdge(2, Edge.top)).toBeNull();
+        // corner method
+        expect(r.nextDiskCorner(2, Corner.topRight)).toBeNull();
+        expect(r.nextDiskCorner(2, Corner.bottomRight)).toBeNull();
+        expect(r.nextDiskCorner(2, Corner.bottomLeft)).toEqual(r.getDisk(3));
+        expect(r.nextDiskCorner(2, Corner.topLeft)).toBeNull();
+    });
+});
+describe('Test for board size 4 for next method', (): void => {
+    it('test board next disk method for position 1', (): void => {
+        const r = new ReversiBoard(4);
+        // edge method
+        expect(r.nextDiskEdge(1, Edge.left)).toBeNull();
+        expect(r.nextDiskEdge(1, Edge.top)).toBeNull();
+        expect(r.nextDiskEdge(1, Edge.bottom)).toEqual(r.getDisk(5));
+        expect(r.nextDiskEdge(1, Edge.right)).toEqual(r.getDisk(2));
+        // corner method
+        expect(r.nextDiskCorner(1, Corner.topLeft)).toBeNull();
+        expect(r.nextDiskCorner(1, Corner.bottomLeft)).toBeNull();
+        expect(r.nextDiskCorner(1, Corner.topRight)).toBeNull();
+        expect(r.nextDiskCorner(1, Corner.bottomRight)).toEqual(r.getDisk(6));
+    });
+    it('test board next disk method for position 16', (): void => {
+        const r = new ReversiBoard(4);
+        // edge method
+        expect(r.nextDiskEdge(16, Edge.right)).toBeNull();
+        expect(r.nextDiskEdge(16, Edge.bottom)).toBeNull();
+        expect(r.nextDiskEdge(16, Edge.left)).toEqual(r.getDisk(15));
+        expect(r.nextDiskEdge(16, Edge.top)).toEqual(r.getDisk(12));
+        // corner method
+        expect(r.nextDiskCorner(16, Corner.topRight)).toBeNull();
+        expect(r.nextDiskCorner(16, Corner.bottomRight)).toBeNull();
+        expect(r.nextDiskCorner(16, Corner.bottomLeft)).toBeNull();
+        expect(r.nextDiskCorner(16, Corner.topLeft)).toEqual(r.getDisk(11));
+    });
+    it('test board next disk method for position 7', (): void => {
+        const r = new ReversiBoard(4);
+        // edge method
+        expect(r.nextDiskEdge(7, Edge.right)).toEqual(r.getDisk(8));
+        expect(r.nextDiskEdge(7, Edge.bottom)).toEqual(r.getDisk(11));
+        expect(r.nextDiskEdge(7, Edge.left)).toEqual(r.getDisk(6));
+        expect(r.nextDiskEdge(7, Edge.top)).toEqual(r.getDisk(3));
+        // corner method
+        expect(r.nextDiskCorner(7, Corner.topRight)).toEqual(r.getDisk(4));
+        expect(r.nextDiskCorner(7, Corner.bottomRight)).toEqual(r.getDisk(12));
+        expect(r.nextDiskCorner(7, Corner.bottomLeft)).toEqual(r.getDisk(10));
+        expect(r.nextDiskCorner(7, Corner.topLeft)).toEqual(r.getDisk(2));
+    });
+});
