@@ -170,6 +170,29 @@ class ReversiBoard {
         }
         return [];
     }
+
+    public insertDisk(position: number, diskType: DiskType): boolean {
+        if (!this.isAnyEmptyDisk()) return false;
+        if (!this.isPositionValid(position)) return false;
+        if (diskType !== DiskType.light && diskType !== DiskType.dark) return false;
+        if (this.getDisk(position).type !== DiskType.empty) return false;
+        const edges: Edge[] = [Edge.left, Edge.right, Edge.bottom, Edge.top];
+        // eslint-disable-next-line max-len
+        const corners: Corner[] = [Corner.bottomLeft, Corner.bottomRight, Corner.topLeft, Corner.topRight];
+        const positions: number[] = [];
+        edges.forEach((edge): void => {
+            positions.push(...this.dominatablePositionsEdge(position, edge, diskType));
+        });
+        corners.forEach((corner): void => {
+            positions.push(...this.dominatablePositionsCorner(position, corner, diskType));
+        });
+        if (positions.length > 0) {
+            positions.forEach((pos): void => this.toggleDisk(pos));
+            this.override(diskType, position);
+            return true;
+        }
+        return false;
+    }
 }
 
 export default ReversiBoard;
